@@ -36,9 +36,9 @@ public class User {
 
     private String living_place; // living place of the user (my home, my parents home, etc.)
 
-    private Boolean smoking; // if the user smokes or not
+    private String smoking; // if the user smokes or not
 
-    private Boolean drinking;   // if the user drinks or not
+    private String drinking;   // if the user drinks or not
 
     private String language_for_communication; // language for communication of the user (english, french, etc.)
 
