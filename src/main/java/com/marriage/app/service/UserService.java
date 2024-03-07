@@ -1,5 +1,7 @@
 package com.marriage.app.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,10 @@ public class UserService {
         if (marriageRepo.findById(id).isPresent() && marriageRepo.findById(favId).isPresent()) {
             User user = marriageRepo.findById(id).get();
             User favUser = marriageRepo.findById(favId).get();
+            if(user.getFav_user() == null)
+            {
+                user.setFav_user(new ArrayList<User>());
+            }
             user.getFav_user().add(favUser);
             marriageRepo.save(user);
             return ResponseEntity.ok("User added to fav");
@@ -60,5 +66,5 @@ public class UserService {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
 }
