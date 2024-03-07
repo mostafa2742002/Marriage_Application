@@ -30,7 +30,7 @@ public class HomeService {
     }
 
 
-    public ResponseEntity<User> login(User user) {
+    public ResponseEntity<ArrayList<User>> login(User user) {
         
         User userFromDb = marriageRepo.findByEmail(user.getEmail());
         ArrayList<User> users = new ArrayList<User>();
@@ -54,8 +54,8 @@ public class HomeService {
             ArrayList<User> temp = marriageRepo.findByGender("man");
             users.addAll(temp);
         }
-        
-        return ResponseEntity.ok(userFromDb);
+
+        return ResponseEntity.ok(users);
     }
 
 }
