@@ -1,5 +1,7 @@
 package com.marriage.app.entities;
 
+import java.util.ArrayList;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -46,4 +48,5 @@ public class User {
 
     private String need_kids; // if the user needs kids or not
 
+    private ArrayList<User> fav_user; // favorite users of the user
 }
