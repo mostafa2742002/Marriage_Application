@@ -57,8 +57,10 @@ public class HomeService {
         // return ResponseEntity.ok(users);
 
         // return ResponseEntity.ok(users);
+        
         // put the date now
         userFromDb.setActive_status( new Date(System.currentTimeMillis()));
+        marriageRepo.save(userFromDb);
 
         return ResponseEntity.ok(userFromDb);
     }
