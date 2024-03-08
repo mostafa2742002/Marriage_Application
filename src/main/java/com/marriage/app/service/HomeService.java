@@ -16,7 +16,7 @@ public class HomeService {
     private marriage_repo marriageRepo;
 
     public String register(User user) {
-        
+
         if (user.getEmail() == null || user.getPassword() == null) {
             return "Email and password are required";
         }
@@ -29,33 +29,44 @@ public class HomeService {
         return "User registered successfully";
     }
 
+    public ResponseEntity<User> login(User user) {
 
-    public ResponseEntity<ArrayList<User>> login(User user) {
-        
         User userFromDb = marriageRepo.findByEmail(user.getEmail());
-        ArrayList<User> users = new ArrayList<User>();
-        
+
         if (userFromDb == null) {
             return ResponseEntity.notFound().build();
         }
-        
+
         if (!userFromDb.getPassword().equals(user.getPassword())) {
             return ResponseEntity.notFound().build();
         }
 
-        users.add(userFromDb);
-        if(userFromDb.getGender().equals("man"))
-        {
-            ArrayList<User> temp = marriageRepo.findByGender("woman");
-            users.addAll(temp);
-        }
-        else
-        {
-            ArrayList<User> temp = marriageRepo.findByGender("man");
-            users.addAll(temp);
+        // users.add(userFromDb);
+        // if(userFromDb.getGender().equals("man"))
+        // {
+        // ArrayList<User> temp = marriageRepo.findByGender("woman");
+        // users.addAll(temp);
+        // }
+        // else
+        // {
+        // ArrayList<User> temp = marriageRepo.findByGender("man");
+        // users.addAll(temp);
+        // }
+
+        // return ResponseEntity.ok(users);
+
+        // return ResponseEntity.ok(users);
+        return ResponseEntity.ok(userFromDb);
+    }
+
+    public ResponseEntity<ArrayList<User>> getAll(String gender) {
+        if (gender.equals("man")) {
+            return ResponseEntity.ok(marriageRepo.findByGender("woman"));
+        } else {
+            return ResponseEntity.ok(marriageRepo.findByGender("man"));
         }
 
-        return ResponseEntity.ok(users);
+        // return ResponseEntity.ok(marriageRepo.findAll());
     }
 
 }

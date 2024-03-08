@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marriage.app.entities.User;
@@ -24,9 +25,13 @@ public class HomeController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ArrayList<User>> login(@RequestBody User user) {
+    public ResponseEntity<User> login(@RequestBody User user) {
         return homeService.login(user);
     }
 
+    @PostMapping("/getall")
+    public ResponseEntity<ArrayList<User>> getAll(@RequestParam String gender) {
+        return homeService.getAll(gender);
+    }
 
 }
