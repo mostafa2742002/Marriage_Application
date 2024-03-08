@@ -75,5 +75,7 @@ public class User {
     private ArrayList<User> fav_user; // favorite users of the user
 
     private String image;
+
+    private ArrayList<String> image_array;
 }
 
