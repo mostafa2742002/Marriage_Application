@@ -1,8 +1,7 @@
 package com.marriage.app.service;
 
-import java.sql.Date;
 import java.util.ArrayList;
-
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class HomeService {
             return ResponseEntity.notFound().build();
         }
         // we need to add the time when the user is active
-        userFromDb.setActive_status( new Date(System.currentTimeMillis()));
+        userFromDb.setActive_status( new Date());
         marriageRepo.save(userFromDb);
 
         return ResponseEntity.ok(userFromDb);
