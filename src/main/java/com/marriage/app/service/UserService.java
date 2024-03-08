@@ -74,14 +74,18 @@ public class UserService {
     // }
     // }
 
-    public ResponseEntity<User> getFav(String id) {
+    public ResponseEntity<ArrayList<User>> getFav(String id) {
 
         if (id == null) {
             return ResponseEntity.notFound().build();
         }
 
         if (marriageRepo.findById(id).isPresent()) {
-            return ResponseEntity.ok(marriageRepo.findById(id).get());
+            User user = marriageRepo.findById(id).get();
+            if (user.getFav_user() == null) {
+                return ResponseEntity.ok(new ArrayList<User>());
+            }
+            return ResponseEntity.ok(user.getFav_user());
         } else {
             return ResponseEntity.notFound().build();
         }

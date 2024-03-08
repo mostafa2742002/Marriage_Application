@@ -1,5 +1,7 @@
 package com.marriage.app.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +36,7 @@ public class UserController {
     // }
     
     @PostMapping("/getfav")
-    public ResponseEntity<User> getFav(@RequestParam String id)
+    public ResponseEntity<ArrayList<User>> getFav(@RequestParam String id)
     {
         return userService.getFav(id);
     }
