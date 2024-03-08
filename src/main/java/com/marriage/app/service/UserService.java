@@ -41,7 +41,8 @@ public class UserService {
             if (user.getFav_user() == null) {
                 user.setFav_user(new ArrayList<User>());
             }
-            // we need to check if the user is already in the fav list, if yes then remove it from the list
+            // we need to check if the user is already in the fav list, if yes then remove
+            // it from the list
             if (user.getFav_user().contains(favUser)) {
                 user.getFav_user().remove(favUser);
                 marriageRepo.save(user);
@@ -57,19 +58,20 @@ public class UserService {
 
     // public ResponseEntity<String> removeFromFav(String id, String favId) {
 
-    //     if (id == null || favId == null) {
-    //         return ResponseEntity.notFound().build();
-    //     }
+    // if (id == null || favId == null) {
+    // return ResponseEntity.notFound().build();
+    // }
 
-    //     if (marriageRepo.findById(id).isPresent() && marriageRepo.findById(favId).isPresent()) {
-    //         User user = marriageRepo.findById(id).get();
-    //         User favUser = marriageRepo.findById(favId).get();
-    //         user.getFav_user().remove(favUser);
-    //         marriageRepo.save(user);
-    //         return ResponseEntity.ok("User removed from fav");
-    //     } else {
-    //         return ResponseEntity.notFound().build();
-    //     }
+    // if (marriageRepo.findById(id).isPresent() &&
+    // marriageRepo.findById(favId).isPresent()) {
+    // User user = marriageRepo.findById(id).get();
+    // User favUser = marriageRepo.findById(favId).get();
+    // user.getFav_user().remove(favUser);
+    // marriageRepo.save(user);
+    // return ResponseEntity.ok("User removed from fav");
+    // } else {
+    // return ResponseEntity.notFound().build();
+    // }
     // }
 
     public ResponseEntity<User> getFav(String id) {
@@ -80,6 +82,29 @@ public class UserService {
 
         if (marriageRepo.findById(id).isPresent()) {
             return ResponseEntity.ok(marriageRepo.findById(id).get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    public ResponseEntity<Boolean> inMyFav(String id, String favId) {
+
+        if (id == null || favId == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent() && marriageRepo.findById(favId).isPresent()) {
+            User user = marriageRepo.findById(id).get();
+            User favUser = marriageRepo.findById(favId).get();
+            if (user.getFav_user() == null) {
+                return ResponseEntity.ok(false);
+            }
+            if (user.getFav_user().contains(favUser)) {
+                return ResponseEntity.ok(true);
+            } else {
+                return ResponseEntity.ok(false);
+            }
         } else {
             return ResponseEntity.notFound().build();
         }

@@ -38,5 +38,11 @@ public class UserController {
     {
         return userService.getFav(id);
     }
+
+    @PostMapping("/inmyfav")
+    public ResponseEntity<Boolean> inMyFav(@RequestParam String id, @RequestParam String favId)
+    {
+        return userService.inMyFav(id, favId);
+    }
     
 }
