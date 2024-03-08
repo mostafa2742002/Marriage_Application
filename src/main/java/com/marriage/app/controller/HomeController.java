@@ -20,7 +20,7 @@ public class HomeController {
 
     @PostMapping("/register")
     public String register(@RequestBody User user) {
-        System.out.println(user);
+        // System.out.println(user);
         return homeService.register(user);
     }
 

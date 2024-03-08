@@ -41,24 +41,7 @@ public class HomeService {
         if (!userFromDb.getPassword().equals(user.getPassword())) {
             return ResponseEntity.notFound().build();
         }
-
-        // users.add(userFromDb);
-        // if(userFromDb.getGender().equals("man"))
-        // {
-        // ArrayList<User> temp = marriageRepo.findByGender("woman");
-        // users.addAll(temp);
-        // }
-        // else
-        // {
-        // ArrayList<User> temp = marriageRepo.findByGender("man");
-        // users.addAll(temp);
-        // }
-
-        // return ResponseEntity.ok(users);
-
-        // return ResponseEntity.ok(users);
-        
-        // put the date now
+        // we need to add the time when the user is active
         userFromDb.setActive_status( new Date(System.currentTimeMillis()));
         marriageRepo.save(userFromDb);
 
@@ -67,9 +50,27 @@ public class HomeService {
 
     public ResponseEntity<ArrayList<User>> getAll(String gender) {
         if (gender.equals("man")) {
-            return ResponseEntity.ok(marriageRepo.findByGender("woman"));
+            ArrayList<User> users = marriageRepo.findByGender("woman");
+            for(User user: users){
+                user.setPassword(null);
+                user.setFav_user(null);
+                // we need to minus the time when the user is active
+                // user.setActive_status( new Date(System.currentTimeMillis() - user.getActive_status().getTime()));
+
+            }
+
+
+            return ResponseEntity.ok(users);
         } else {
-            return ResponseEntity.ok(marriageRepo.findByGender("man"));
+            ArrayList<User> users = marriageRepo.findByGender("man");
+            for(User user: users){
+                user.setPassword(null);
+                user.setFav_user(null);
+                // we need to minus the time when the user is active
+                // user.setActive_status( new Date(System.currentTimeMillis() - user.getActive_status().getTime()));
+
+            }
+            return ResponseEntity.ok(users);
         }
 
         // return ResponseEntity.ok(marriageRepo.findAll());
