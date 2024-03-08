@@ -1,5 +1,6 @@
 package com.marriage.app.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,9 @@ public class HomeService {
         // return ResponseEntity.ok(users);
 
         // return ResponseEntity.ok(users);
+        // put the date now
+        userFromDb.setActive_status( new Date(System.currentTimeMillis()));
+
         return ResponseEntity.ok(userFromDb);
     }
 

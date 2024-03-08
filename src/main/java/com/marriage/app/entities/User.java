@@ -1,6 +1,7 @@
 package com.marriage.app.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -77,5 +78,7 @@ public class User {
     private String image;
 
     private ArrayList<String> image_array;
+
+    private Date active_status;
 }
 
