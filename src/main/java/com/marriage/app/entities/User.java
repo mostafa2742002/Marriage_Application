@@ -73,5 +73,7 @@ public class User {
     private String height_woman; // height of the user
     
     private ArrayList<User> fav_user; // favorite users of the user
+
+    private String image;
 }
 
