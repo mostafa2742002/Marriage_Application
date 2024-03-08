@@ -27,11 +27,11 @@ public class UserController {
         return userService.addToFav(id, favId);
     }
 
-    @PostMapping("/removefromfav")
-    public ResponseEntity<String> removeFromFav(@RequestParam String id, @RequestParam String favId)
-    {
-        return userService.removeFromFav(id, favId);
-    }
+    // @PostMapping("/removefromfav")
+    // public ResponseEntity<String> removeFromFav(@RequestParam String id, @RequestParam String favId)
+    // {
+    //     return userService.removeFromFav(id, favId);
+    // }
     
     @PostMapping("/getfav")
     public ResponseEntity<User> getFav(@RequestParam String id)
