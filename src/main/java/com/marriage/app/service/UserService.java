@@ -38,8 +38,7 @@ public class UserService {
         if (marriageRepo.findById(id).isPresent() && marriageRepo.findById(favId).isPresent()) {
             User user = marriageRepo.findById(id).get();
             User favUser = marriageRepo.findById(favId).get();
-            if(user.getFav_user() == null)
-            {
+            if (user.getFav_user() == null) {
                 user.setFav_user(new ArrayList<User>());
             }
             user.getFav_user().add(favUser);
@@ -65,6 +64,20 @@ public class UserService {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public ResponseEntity<User> getFav(String id) {
+
+        if (id == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent()) {
+            return ResponseEntity.ok(marriageRepo.findById(id).get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
 }

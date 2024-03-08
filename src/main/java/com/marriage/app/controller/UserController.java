@@ -33,4 +33,9 @@ public class UserController {
         return userService.removeFromFav(id, favId);
     }
     
+    @PostMapping("/getfav")
+    public ResponseEntity<User> getFav(@RequestParam String id)
+    {
+        return userService.getFav(id);
+    }
 }
