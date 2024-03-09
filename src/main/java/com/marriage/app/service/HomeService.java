@@ -17,12 +17,12 @@ public class HomeService {
 
     public String register(User user) {
 
-        if (user.getEmail() == null || user.getPassword() == null) {
-            return "Email and password are required";
+        if (user.getName() == null || user.getPassword() == null) {
+            return "Name and password are required";
         }
 
-        if (marriageRepo.findByEmail(user.getEmail()) != null) {
-            return "Email already exists";
+        if (marriageRepo.findbyName(user.getName()) != null) {
+            return "Name already exists";
         }
 
         marriageRepo.save(user);
@@ -31,7 +31,7 @@ public class HomeService {
 
     public ResponseEntity<User> login(User user) {
 
-        User userFromDb = marriageRepo.findByEmail(user.getEmail());
+        User userFromDb = marriageRepo.findbyName(user.getName());
 
         if (userFromDb == null) {
             return ResponseEntity.notFound().build();
