@@ -26,7 +26,7 @@ public class User {
 
     private String birthdate; // birthdate of the user
 
-    private String gender; // man or woman
+    private String gender; // male or female
 
     private String nationality; // nationality of the user
 
