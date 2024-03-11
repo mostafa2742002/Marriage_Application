@@ -23,7 +23,7 @@ public class HomeService {
             return "Name and password are required";
         }
 
-        if (marriageRepo.findbyName(user.getName()).isPresent()) {
+        if (marriageRepo.findByName(user.getName()) != null) {
             return "Name already exists";
         }
 
@@ -33,20 +33,20 @@ public class HomeService {
 
     public ResponseEntity<User> login(User user) {
 
-        Optional<User>  userFromDb = marriageRepo.findbyName(user.getName());
+        User userFromDb = marriageRepo.findByName(user.getName());
 
-        if (userFromDb.isEmpty()) {
+        if (userFromDb == null) {
             return ResponseEntity.notFound().build();
         }
 
-        if (!userFromDb.get().getPassword().equals(user.getPassword())) {
+        if (!userFromDb.getPassword().equals(user.getPassword())) {
             return ResponseEntity.notFound().build();
         }
         // we need to add the time when the user is active
-        userFromDb.get().setActive_status(new Date());
-        marriageRepo.save(userFromDb.get());
+        userFromDb.setActive_status( new Date());
+        marriageRepo.save(userFromDb);
 
-        return ResponseEntity.ok(userFromDb.get());
+        return ResponseEntity.ok(userFromDb);
     }
 
     public ResponseEntity<ArrayList<User>> getAll(String gender) {
