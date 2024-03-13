@@ -97,17 +97,20 @@ public class UserService {
 
     }
 
-    public ResponseEntity<String> setImage(String id, String image) {
+    public ResponseEntity<String> setImage(String id, ArrayList<String> images) {
 
-        if (id == null || image == null) {
+        if (id == null || images == null) {
             return ResponseEntity.notFound().build();
         }
 
         if (marriageRepo.findById(id).isPresent()) {
             User user = marriageRepo.findById(id).get();
-            user.setImage(image);
+            if(user.getImage_array() == null){
+                user.setImage_array(new ArrayList<String>());
+            }
+            user.getImage_array().addAll(images);
             marriageRepo.save(user);
-            return ResponseEntity.ok("Image set");
+            return ResponseEntity.ok("Images added successfully");
         } else {
             return ResponseEntity.notFound().build();
         }
