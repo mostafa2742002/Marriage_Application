@@ -45,4 +45,11 @@ public class UserController {
     {
         return userService.setImage(image.getId(), image.getImages());
     }
+
+    @PostMapping("/getimages")
+    public ResponseEntity<ArrayList<String>> getImages(@RequestParam String id)
+    {
+        return userService.getImages(id);
+    }
+    
 }

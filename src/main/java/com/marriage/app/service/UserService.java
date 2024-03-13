@@ -117,4 +117,22 @@ public class UserService {
 
     }
 
+    public ResponseEntity<ArrayList<String>> getImages(String id) {
+
+        if (id == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent()) {
+            User user = marriageRepo.findById(id).get();
+            if(user.getImage_array() == null){
+                return ResponseEntity.ok(new ArrayList<String>());
+            }
+            return ResponseEntity.ok(user.getImage_array());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
 }
