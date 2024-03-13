@@ -20,7 +20,7 @@ public class User {
 
     private String password; // password of the user
 
-    private String phone; // phone number of the user
+    private String phozzne; // phone number of the user
 
     private String name; // name of the user
 

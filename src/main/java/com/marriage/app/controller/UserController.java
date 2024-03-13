@@ -29,12 +29,6 @@ public class UserController {
         return userService.addToFav(id, favId);
     }
 
-    // @PostMapping("/removefromfav")
-    // public ResponseEntity<String> removeFromFav(@RequestParam String id, @RequestParam String favId)
-    // {
-    //     return userService.removeFromFav(id, favId);
-    // }
-    
     @PostMapping("/getfav")
     public ResponseEntity<ArrayList<User>> getFav(@RequestParam String id)
     {
@@ -47,4 +41,9 @@ public class UserController {
         return userService.inMyFav(id, favId);
     }
     
+    @PostMapping("/setimage")
+    public ResponseEntity<String> setImage(@RequestParam String id, @RequestParam String image)
+    {
+        return userService.setImage(id, image);
+    }
 }

@@ -56,24 +56,6 @@ public class UserService {
         }
     }
 
-    // public ResponseEntity<String> removeFromFav(String id, String favId) {
-
-    // if (id == null || favId == null) {
-    // return ResponseEntity.notFound().build();
-    // }
-
-    // if (marriageRepo.findById(id).isPresent() &&
-    // marriageRepo.findById(favId).isPresent()) {
-    // User user = marriageRepo.findById(id).get();
-    // User favUser = marriageRepo.findById(favId).get();
-    // user.getFav_user().remove(favUser);
-    // marriageRepo.save(user);
-    // return ResponseEntity.ok("User removed from fav");
-    // } else {
-    // return ResponseEntity.notFound().build();
-    // }
-    // }
-
     public ResponseEntity<ArrayList<User>> getFav(String id) {
 
         if (id == null) {
@@ -109,6 +91,23 @@ public class UserService {
             } else {
                 return ResponseEntity.ok(false);
             }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    public ResponseEntity<String> setImage(String id, String image) {
+
+        if (id == null || image == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent()) {
+            User user = marriageRepo.findById(id).get();
+            user.setImage(image);
+            marriageRepo.save(user);
+            return ResponseEntity.ok("Image set");
         } else {
             return ResponseEntity.notFound().build();
         }
