@@ -105,7 +105,7 @@ public class UserService {
 
         if (marriageRepo.findById(id).isPresent()) {
             User user = marriageRepo.findById(id).get();
-            if(user.getImage_array() == null){
+            if (user.getImage_array() == null) {
                 user.setImage_array(new ArrayList<String>());
             }
             user.getImage_array().addAll(images);
@@ -125,10 +125,116 @@ public class UserService {
 
         if (marriageRepo.findById(id).isPresent()) {
             User user = marriageRepo.findById(id).get();
-            if(user.getImage_array() == null){
+            if (user.getImage_array() == null) {
                 return ResponseEntity.ok(new ArrayList<String>());
             }
             return ResponseEntity.ok(user.getImage_array());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    public ResponseEntity<String> addchatWith(String id, String chatId) {
+
+        if (id == null || chatId == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent() && marriageRepo.findById(chatId).isPresent()) {
+            User user = marriageRepo.findById(id).get();
+            User chatUser = marriageRepo.findById(chatId).get();
+            if (user.getChat_with() == null) {
+                user.setChat_with(new ArrayList<String>());
+            }
+            if (chatUser.getChat_with() == null) {
+                chatUser.setChat_with(new ArrayList<String>());
+            }
+
+            if (user.getChat_with().contains(chatId)) {
+                return ResponseEntity.ok("Yes");
+            }
+
+            String subscription = user.getSubscription();
+
+            if (subscription.equals("free")) {
+                if (user.getChat_with().size() >= 2) {
+                    return ResponseEntity.ok("No");
+                } else {
+                    user.getChat_with().add(chatId);
+                }
+            }
+
+            if (subscription.equals("gold")) {
+                user.getChat_with().add(chatId);
+            }
+
+            if (subscription.equals("silver")) {
+                if (user.getChat_with().size() >= 10) {
+                    return ResponseEntity.ok("No");
+                } else {
+                    user.getChat_with().add(chatId);
+                }
+            }
+
+            if (subscription.equals("platinum")) {
+                if (user.getChat_with().size() >= 5) {
+                    return ResponseEntity.ok("No");
+                } else {
+                    user.getChat_with().add(chatId);
+                }
+            }
+
+            marriageRepo.save(user);
+            return ResponseEntity.ok("Yes");
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    public ResponseEntity<String> chatWith(String id) {
+
+        if (id == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent()) {
+
+            User user = marriageRepo.findById(id).get();
+
+            String subscription = user.getSubscription();
+
+            if (subscription.equals("free")) {
+                if (user.getChat_with().size() >= 2) {
+                    return ResponseEntity.ok("No");
+                } else {
+                    return ResponseEntity.ok("Yes");
+                }
+            }
+
+            if (subscription.equals("gold")) {
+                return ResponseEntity.ok("Yes");
+            }
+
+            if (subscription.equals("silver")) {
+                if (user.getChat_with().size() >= 10) {
+                    return ResponseEntity.ok("No");
+                } else {
+                    return ResponseEntity.ok("Yes");
+                }
+            }
+
+            if (subscription.equals("platinum")) {
+                if (user.getChat_with().size() >= 5) {
+                    return ResponseEntity.ok("No");
+                } else {
+                    return ResponseEntity.ok("Yes");
+                }
+            }
+
+            return ResponseEntity.ok("No");
         } else {
             return ResponseEntity.notFound().build();
         }

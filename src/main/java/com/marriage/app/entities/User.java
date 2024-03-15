@@ -80,5 +80,9 @@ public class User {
     private ArrayList<String> image_array;
 
     private Date active_status;
+
+    private String subscription;
+
+    private ArrayList<String> chat_with;
 }
 

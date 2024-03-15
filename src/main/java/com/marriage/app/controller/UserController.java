@@ -18,7 +18,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    
     @PostMapping("/getuser")
     public ResponseEntity<User> getUser(@RequestParam String id) {
         return userService.getUser(id);
@@ -52,4 +52,15 @@ public class UserController {
         return userService.getImages(id);
     }
     
+    @PostMapping("addchatwith")
+    public ResponseEntity<String> addchatWith(@RequestParam String id, @RequestParam String chatId)
+    {
+        return userService.addchatWith(id, chatId);
+    }
+
+    @PostMapping("chatwith")
+    public ResponseEntity<String> chatWith(@RequestParam String id)
+    {
+        return userService.chatWith(id);
+    }
 }
