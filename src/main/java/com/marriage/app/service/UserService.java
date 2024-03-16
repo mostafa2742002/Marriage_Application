@@ -241,4 +241,21 @@ public class UserService {
 
     }
 
+    public ResponseEntity<String> upgradeSubscribtion(String id, String subscription) {
+
+        if (id == null || subscription == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent()) {
+            User user = marriageRepo.findById(id).get();
+            user.setSubscription(subscription);
+            marriageRepo.save(user);
+            return ResponseEntity.ok("Subscription upgraded successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
 }
