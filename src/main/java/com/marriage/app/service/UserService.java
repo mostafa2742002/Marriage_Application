@@ -258,4 +258,19 @@ public class UserService {
 
     }
 
+    public ResponseEntity<String> getSubscription(String id) {
+
+        if (id == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent()) {
+            User user = marriageRepo.findById(id).get();
+            return ResponseEntity.ok(user.getSubscription());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
 }

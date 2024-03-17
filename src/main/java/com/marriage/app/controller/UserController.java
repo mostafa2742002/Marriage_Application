@@ -69,4 +69,11 @@ public class UserController {
     {
         return userService.upgradeSubscribtion(id, subscription);
     }
+
+    @PostMapping("/getsubscription")
+    public ResponseEntity<String> getSubscription(@RequestParam String id)
+    {
+        return userService.getSubscription(id);
+    }
+    
 }
