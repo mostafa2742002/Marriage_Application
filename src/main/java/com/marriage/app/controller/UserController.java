@@ -18,10 +18,15 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    
+
     @PostMapping("/getuser")
     public ResponseEntity<User> getUser(@RequestParam String id) {
         return userService.getUser(id);
+    }
+
+    @PostMapping("/updateuser")
+    public ResponseEntity<String> updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
     }
 
     @PostMapping("/addtofav")
@@ -35,45 +40,38 @@ public class UserController {
     }
 
     @PostMapping("/inmyfav")
-    public ResponseEntity<Boolean> inMyFav(@RequestParam String id, @RequestParam String favId)
-    {
+    public ResponseEntity<Boolean> inMyFav(@RequestParam String id, @RequestParam String favId) {
         return userService.inMyFav(id, favId);
     }
 
     @PostMapping("/setimages")
-    public ResponseEntity<String> setImage(@RequestBody SetImages image)
-    {
+    public ResponseEntity<String> setImage(@RequestBody SetImages image) {
         return userService.setImage(image.getId(), image.getImages());
     }
 
     @PostMapping("/getimages")
-    public ResponseEntity<ArrayList<String>> getImages(@RequestParam String id)
-    {
+    public ResponseEntity<ArrayList<String>> getImages(@RequestParam String id) {
         return userService.getImages(id);
     }
-    
+
     @PostMapping("addchatwith")
-    public ResponseEntity<String> addchatWith(@RequestParam String id, @RequestParam String chatId)
-    {
+    public ResponseEntity<String> addchatWith(@RequestParam String id, @RequestParam String chatId) {
         return userService.addchatWith(id, chatId);
     }
 
     @PostMapping("chatwith")
-    public ResponseEntity<String> chatWith(@RequestParam String id)
-    {
+    public ResponseEntity<String> chatWith(@RequestParam String id) {
         return userService.chatWith(id);
     }
 
     @PostMapping("/upgrade/subscription")
-    public ResponseEntity<String> upgradeSubscribtion(@RequestParam String id, @RequestParam String subscription)
-    {
+    public ResponseEntity<String> upgradeSubscribtion(@RequestParam String id, @RequestParam String subscription) {
         return userService.upgradeSubscribtion(id, subscription);
     }
 
     @PostMapping("/getsubscription")
-    public ResponseEntity<String> getSubscription(@RequestParam String id)
-    {
+    public ResponseEntity<String> getSubscription(@RequestParam String id) {
         return userService.getSubscription(id);
     }
-    
+
 }

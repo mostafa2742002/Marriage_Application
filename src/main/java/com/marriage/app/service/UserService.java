@@ -29,6 +29,21 @@ public class UserService {
 
     }
 
+    public ResponseEntity<String> updateUser(User user) {
+
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(user.getId()).isPresent()) {
+            marriageRepo.save(user);
+            return ResponseEntity.ok("User updated successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
     public ResponseEntity<String> addToFav(String id, String favId) {
 
         if (id == null || favId == null) {
