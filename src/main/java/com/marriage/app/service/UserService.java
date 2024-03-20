@@ -1,6 +1,7 @@
 package com.marriage.app.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +35,136 @@ public class UserService {
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
-
-        if (marriageRepo.findById(user.getId()).isPresent()) {
-            marriageRepo.save(user);
-            return ResponseEntity.ok("User updated successfully");
-        } else {
+        User userFromDb = marriageRepo.findById(user.getId()).get();
+        if (userFromDb == null) {
             return ResponseEntity.notFound().build();
         }
 
+        userFromDb = build_user(userFromDb, user);
+        if (userFromDb == null) {
+            return ResponseEntity.notFound().build();
+        }
+        marriageRepo.save(userFromDb);
+        return ResponseEntity.ok("User updated successfully");
+
+    }
+    
+    public User build_user(User userFromDb, User user) {
+        //  email, password, phone ,name, birthdate, gender ,nationality, live_situation, living_place, language_for_communication, income, religious_denomination, tribal_affiliation
+        //  health_status_woman_man, educational_level_woman_man, marital_status_woman_man,work_status_woman_man,expected_marriage_date_woman,fav_communication_woman_man,wearing_hijab_woman_man
+        //  need_kids_woman_man, smoking_drinking_woman_man, skin_woman_man, religious_commitment_woman_man,daily_habits_woman
+        //  weight_woman,height_woman,fav_user,image,image_array,active_status,subscription,chat_with,pio,latitude,longitude
+
+        if (user.getEmail() != null) {
+            userFromDb.setEmail(user.getEmail());
+        }
+        if (user.getPassword() != null) {
+            userFromDb.setPassword(user.getPassword());
+        }
+        if (user.getPhone() != null) {
+            userFromDb.setPhone(user.getPhone());
+        }
+        if (user.getName() != null) {
+            userFromDb.setName(user.getName());
+        }
+        if (user.getBirthdate() != null) {
+            userFromDb.setBirthdate(user.getBirthdate());
+        }
+        if (user.getGender() != null) {
+            userFromDb.setGender(user.getGender());
+        }
+        if (user.getNationality() != null) {
+            userFromDb.setNationality(user.getNationality());
+        }
+        if (user.getLive_situation() != null) {
+            userFromDb.setLive_situation(user.getLive_situation());
+        }
+        if (user.getLiving_place() != null) {
+            userFromDb.setLiving_place(user.getLiving_place());
+        }
+        if (user.getLanguage_for_communication() != null) {
+            userFromDb.setLanguage_for_communication(user.getLanguage_for_communication());
+        }
+        if (user.getIncome() != null) {
+            userFromDb.setIncome(user.getIncome());
+        }
+        if (user.getReligious_denomination() != null) {
+            userFromDb.setReligious_denomination(user.getReligious_denomination());
+        }
+        if (user.getTribal_affiliation() != null) {
+            userFromDb.setTribal_affiliation(user.getTribal_affiliation());
+        }
+        if (user.getHealth_status_woman_man() != null) {
+            userFromDb.setHealth_status_woman_man(user.getHealth_status_woman_man());
+        }
+        if (user.getEducational_level_woman_man() != null) {
+            userFromDb.setEducational_level_woman_man(user.getEducational_level_woman_man());
+        }
+        if (user.getMarital_status_woman_man() != null) {
+            userFromDb.setMarital_status_woman_man(user.getMarital_status_woman_man());
+        }
+        if (user.getWork_status_woman_man() != null) {
+            userFromDb.setWork_status_woman_man(user.getWork_status_woman_man());
+        }
+        if (user.getExpected_marriage_date_woman() != null) {
+            userFromDb.setExpected_marriage_date_woman(user.getExpected_marriage_date_woman());
+        }
+        if (user.getFav_communication_woman_man() != null) {
+            userFromDb.setFav_communication_woman_man(user.getFav_communication_woman_man());
+        }
+        if (user.getWearing_hijab_woman_man() != null) {
+            userFromDb.setWearing_hijab_woman_man(user.getWearing_hijab_woman_man());
+        }
+        if (user.getNeed_kids_woman_man() != null) {
+            userFromDb.setNeed_kids_woman_man(user.getNeed_kids_woman_man());
+        }
+        if (user.getSmoking_drinking_woman_man() != null) {
+            userFromDb.setSmoking_drinking_woman_man(user.getSmoking_drinking_woman_man());
+        }
+        if (user.getSkin_woman_man() != null) {
+            userFromDb.setSkin_woman_man(user.getSkin_woman_man());
+        }
+        if (user.getReligious_commitment_woman_man() != null) {
+            userFromDb.setReligious_commitment_woman_man(user.getReligious_commitment_woman_man());
+        }
+        if (user.getDaily_habits_woman() != null) {
+            userFromDb.setDaily_habits_woman(user.getDaily_habits_woman());
+        }
+        if (user.getWeight_woman() != null) {
+            userFromDb.setWeight_woman(user.getWeight_woman());
+        }
+        if (user.getHeight_woman() != null) {
+            userFromDb.setHeight_woman(user.getHeight_woman());
+        }
+        if (user.getFav_user() != null) {
+            userFromDb.setFav_user(user.getFav_user());
+        }
+        if (user.getImage() != null) {
+            userFromDb.setImage(user.getImage());
+        }
+        if (user.getImage_array() != null) {
+            userFromDb.setImage_array(user.getImage_array());
+        }
+        if (user.getActive_status() != null) {
+            userFromDb.setActive_status(user.getActive_status());
+        }
+        if (user.getSubscription() != null) {
+            userFromDb.setSubscription(user.getSubscription());
+        }
+        if (user.getChat_with() != null) {
+            userFromDb.setChat_with(user.getChat_with());
+        }
+        if (user.getPio() != null) {
+            userFromDb.setPio(user.getPio());
+        }
+        if (user.getLatitude() != null) {
+            userFromDb.setLatitude(user.getLatitude());
+        }
+        if (user.getLongitude() != null) {
+            userFromDb.setLongitude(user.getLongitude());
+        }
+
+        return userFromDb;
     }
 
     public ResponseEntity<String> addToFav(String id, String favId) {
@@ -304,5 +427,5 @@ public class UserService {
         }
 
     }
-    
+
 }
