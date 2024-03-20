@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
-
 @Data
 @Document(collection = "users")
 public class User {
@@ -68,11 +67,11 @@ public class User {
     private String religious_commitment_woman_man; // religious commitment of the user (ملتزمة او مرنه او لا اهتم)
 
     private ArrayList<String> daily_habits_woman; // daily habits of the user (احب القراءة او السباحه )
-    
+
     private String weight_woman; // weight of the user
 
     private String height_woman; // height of the user
-    
+
     private ArrayList<User> fav_user; // favorite users of the user
 
     private String image;
@@ -84,5 +83,10 @@ public class User {
     private String subscription;
 
     private ArrayList<String> chat_with;
-}
 
+    private String pio = "hey, i am using marriage app";
+
+    private String latitude;
+
+    private String longitude;
+}
