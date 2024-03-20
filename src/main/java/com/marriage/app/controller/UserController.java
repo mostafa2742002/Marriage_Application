@@ -74,4 +74,9 @@ public class UserController {
         return userService.getSubscription(id);
     }
 
+    @PostMapping("/editpio")    
+    public ResponseEntity<String> editPio(@RequestParam String id, @RequestParam String pio) {
+        return userService.editPio(id, pio);
+    }
+    
 }

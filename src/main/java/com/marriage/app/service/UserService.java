@@ -288,4 +288,21 @@ public class UserService {
 
     }
 
+    public ResponseEntity<String> editPio(String id, String pio) {
+
+        if (id == null || pio == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findById(id).isPresent()) {
+            User user = marriageRepo.findById(id).get();
+            user.setPio(pio);
+            marriageRepo.save(user);
+            return ResponseEntity.ok("Pio updated successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+    
 }
