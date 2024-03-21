@@ -89,4 +89,8 @@ public class User {
     private String latitude;
 
     private String longitude;
+
+    private String city;
+
+    private String country;
 }

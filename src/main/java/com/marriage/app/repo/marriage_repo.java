@@ -14,4 +14,5 @@ public interface marriage_repo  extends MongoRepository <User, String>{
     // i want to get the user by gender 
     public User findByName(String name);
     public ArrayList<User> findByGender(String gender);
+    public User findByPhone(String phone);
 }

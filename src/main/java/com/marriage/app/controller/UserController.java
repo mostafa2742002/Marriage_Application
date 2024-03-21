@@ -79,4 +79,13 @@ public class UserController {
         return userService.editPio(id, pio);
     }
     
+    @PostMapping("/search")
+    public ResponseEntity<ArrayList<User>> search(@RequestParam String search) {
+        return userService.search(search);
+    }
+
+    @PostMapping("/check/phone")
+    public ResponseEntity<Boolean> checkPhone(@RequestParam String phone) {
+        return userService.checkPhone(phone);
+    }
 }

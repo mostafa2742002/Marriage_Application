@@ -2,6 +2,7 @@ package com.marriage.app.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,12 +49,16 @@ public class UserService {
         return ResponseEntity.ok("User updated successfully");
 
     }
-    
+
     public User build_user(User userFromDb, User user) {
-        //  email, password, phone ,name, birthdate, gender ,nationality, live_situation, living_place, language_for_communication, income, religious_denomination, tribal_affiliation
-        //  health_status_woman_man, educational_level_woman_man, marital_status_woman_man,work_status_woman_man,expected_marriage_date_woman,fav_communication_woman_man,wearing_hijab_woman_man
-        //  need_kids_woman_man, smoking_drinking_woman_man, skin_woman_man, religious_commitment_woman_man,daily_habits_woman
-        //  weight_woman,height_woman,fav_user,image,image_array,active_status,subscription,chat_with,pio,latitude,longitude
+        // email, password, phone ,name, birthdate, gender ,nationality, live_situation,
+        // living_place, language_for_communication, income, religious_denomination,
+        // tribal_affiliation
+        // health_status_woman_man, educational_level_woman_man,
+        // marital_status_woman_man,work_status_woman_man,expected_marriage_date_woman,fav_communication_woman_man,wearing_hijab_woman_man
+        // need_kids_woman_man, smoking_drinking_woman_man, skin_woman_man,
+        // religious_commitment_woman_man,daily_habits_woman
+        // weight_woman,height_woman,fav_user,image,image_array,active_status,subscription,chat_with,pio,latitude,longitude
 
         if (user.getEmail() != null) {
             userFromDb.setEmail(user.getEmail());
@@ -428,4 +433,34 @@ public class UserService {
 
     }
 
+    public ResponseEntity<ArrayList<User>> search(String search) {
+
+        if (search == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<User> users = marriageRepo.findAll();
+        ArrayList<User> result = new ArrayList<User>();
+        for (User user : users) {
+            if (user.getName().contains(search)) {
+                result.add(user);
+            }
+        }
+        return ResponseEntity.ok(result);
+
+    }
+
+    public ResponseEntity<Boolean> checkPhone(String phone) {
+
+        if (phone == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (marriageRepo.findByPhone(phone) != null) {
+            return ResponseEntity.ok(true);
+        } else {
+            return ResponseEntity.ok(false);
+        }
+
+    }
 }
