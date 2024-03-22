@@ -456,7 +456,7 @@ public class UserService {
             return ResponseEntity.notFound().build();
         }
 
-        if (marriageRepo.findByPhone(phone) != null) {
+        if (marriageRepo.findByPhone(phone).isPresent()) {
             return ResponseEntity.ok(true);
         } else {
             return ResponseEntity.ok(false);
