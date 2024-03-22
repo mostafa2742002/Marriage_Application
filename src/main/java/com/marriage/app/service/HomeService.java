@@ -54,7 +54,7 @@ public class HomeService {
     }
 
     public ResponseEntity<ArrayList<User>> getAll(String gender) {
-        if (gender.equals("man")) {
+        if (gender.equals("male")) {
             ArrayList<User> users = marriageRepo.findByGender("female");
             for (User user : users) {
                 user.setPassword(null);
