@@ -87,6 +87,10 @@ public class UserController {
 
     @PostMapping("/checkphone")
     public ResponseEntity<Boolean> checkPhone(@RequestBody JsonNode number) {
-        return userService.checkPhone(number.get("phonenumber").asText());
+        String phonenumber = number.get("phonenumber").asText();
+        if (phonenumber.contains("+") == false)
+            phonenumber = "+" + phonenumber;
+
+        return userService.checkPhone(phonenumber);
     }
 }
