@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.marriage.app.dto.SetImages;
 import com.marriage.app.entities.User;
 import com.marriage.app.service.UserService;
@@ -85,7 +86,7 @@ public class UserController {
     }
 
     @PostMapping("/checkphone")
-    public ResponseEntity<Boolean> checkPhone(@RequestBody String number) {
-        return userService.checkPhone(number);
+    public ResponseEntity<Boolean> checkPhone(@RequestBody JsonNode number) {
+        return userService.checkPhone(number.get("phonenumber").asText());
     }
 }
