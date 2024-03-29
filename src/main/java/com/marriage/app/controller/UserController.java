@@ -74,18 +74,18 @@ public class UserController {
         return userService.getSubscription(id);
     }
 
-    @PostMapping("/editpio")    
+    @PostMapping("/editpio")
     public ResponseEntity<String> editPio(@RequestParam String id, @RequestParam String pio) {
         return userService.editPio(id, pio);
     }
-    
+
     @PostMapping("/search")
     public ResponseEntity<ArrayList<User>> search(@RequestParam String search) {
         return userService.search(search);
     }
 
-    @PostMapping("/check/phone")
-    public ResponseEntity<Boolean> checkPhone(@RequestBody String phone) {
-        return userService.checkPhone(phone);
+    @PostMapping("/checkphone")
+    public ResponseEntity<Boolean> checkPhone(@RequestBody String number) {
+        return userService.checkPhone(number);
     }
 }

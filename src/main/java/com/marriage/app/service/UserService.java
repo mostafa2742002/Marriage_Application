@@ -450,16 +450,16 @@ public class UserService {
 
     }
 
-    public ResponseEntity<Boolean> checkPhone(String phone) {
+    public ResponseEntity<Boolean> checkPhone(String number) {
 
-        if (phone == null) {
+        if (number == null) {
             return ResponseEntity.notFound().build();
         }
-        System.out.println(phone);
-        User user = marriageRepo.findByPhone(phone);
+        System.out.println(number);
+        User user = marriageRepo.findByPhone(number);
         System.out.println(user);
-        
-        if (marriageRepo.findByPhone(phone) != null) {
+
+        if (marriageRepo.findByPhone(number) != null) {
             return ResponseEntity.ok(true);
         } else {
             return ResponseEntity.ok(false);
