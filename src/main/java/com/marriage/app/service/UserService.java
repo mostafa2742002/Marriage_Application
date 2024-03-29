@@ -455,7 +455,10 @@ public class UserService {
         if (phone == null) {
             return ResponseEntity.notFound().build();
         }
-
+        System.out.println(phone);
+        User user = marriageRepo.findByPhone(phone);
+        System.out.println(user);
+        
         if (marriageRepo.findByPhone(phone) != null) {
             return ResponseEntity.ok(true);
         } else {
