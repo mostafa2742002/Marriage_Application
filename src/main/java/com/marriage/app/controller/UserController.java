@@ -93,4 +93,14 @@ public class UserController {
 
         return userService.checkPhone(phonenumber);
     }
+
+    @PostMapping("/forgotpassword")
+    public ResponseEntity<String> forgotPassword(@RequestParam String id, @RequestParam String new_password) {
+        return userService.forgotPassword(id, new_password);
+    }
+
+    @PostMapping("/changepassword")
+    public ResponseEntity<String> changePassword(@RequestParam String id, @RequestParam String old_password,@RequestParam String new_password) {
+        return userService.changePassword(id, old_password, new_password);
+    }
 }

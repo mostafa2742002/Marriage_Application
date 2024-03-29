@@ -466,4 +466,43 @@ public class UserService {
         }
 
     }
+
+    public ResponseEntity<String> forgotPassword(String id, String new_password) {
+
+        if (id == null || new_password == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = marriageRepo.findById(id).get();
+
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        user.setPassword(new_password);
+        marriageRepo.save(user);
+        return ResponseEntity.ok("Password updated successfully");
+
+    }
+
+    public ResponseEntity<String> changePassword(String id, String old_password, String new_password) {
+        if (id == null || old_password == null || new_password == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = marriageRepo.findById(id).get();
+
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (user.getPassword().equals(old_password)) {
+            user.setPassword(new_password);
+            marriageRepo.save(user);
+            return ResponseEntity.ok("Password updated successfully");
+        } else {
+            return ResponseEntity.ok("Old password is incorrect");
+        }
+
+    }
 }
