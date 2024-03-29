@@ -44,10 +44,10 @@ public class HomeService {
         }
         // we need to add the time when the user is active
         userFromDb.setActive_status(new Date());
-        if(user.getImage() != null){
+        if (user.getImage() != null) {
             userFromDb.setImage(user.getImage());
         }
-        
+
         marriageRepo.save(userFromDb);
 
         return ResponseEntity.ok(userFromDb);
@@ -66,7 +66,7 @@ public class HomeService {
             }
 
             return ResponseEntity.ok(users);
-        } else {
+        } else if (gender.equals("female")) {
             ArrayList<User> users = marriageRepo.findByGender("male");
             for (User user : users) {
                 user.setPassword(null);
@@ -78,6 +78,8 @@ public class HomeService {
             }
             return ResponseEntity.ok(users);
         }
+
+        return ResponseEntity.notFound().build();
 
         // return ResponseEntity.ok(marriageRepo.findAll());
     }
