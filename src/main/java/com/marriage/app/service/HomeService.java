@@ -27,6 +27,10 @@ public class HomeService {
             return "Name already exists";
         }
 
+        if (marriageRepo.findByPhone(user.getPhone()) != null) {
+            return "Phone number already exists";
+        }
+
         marriageRepo.save(user);
         return "User registered successfully";
     }
