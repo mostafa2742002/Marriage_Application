@@ -100,7 +100,8 @@ public class UserController {
     }
 
     @PostMapping("/changepassword")
-    public ResponseEntity<String> changePassword(@RequestParam String id, @RequestParam String old_password,@RequestParam String new_password) {
+    public ResponseEntity<String> changePassword(@RequestParam String id, @RequestParam String old_password,
+            @RequestParam String new_password) {
         return userService.changePassword(id, old_password, new_password);
     }
 

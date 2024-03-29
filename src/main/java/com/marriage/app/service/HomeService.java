@@ -54,8 +54,8 @@ public class HomeService {
     }
 
     public ResponseEntity<ArrayList<User>> getAll(String gender) {
-        if (gender.equals("male")) {
-            ArrayList<User> users = marriageRepo.findByGender("female");
+        if (gender.equals("Male")) {
+            ArrayList<User> users = marriageRepo.findByGender("Female");
             for (User user : users) {
                 user.setPassword(null);
                 user.setFav_user(null);
@@ -66,8 +66,8 @@ public class HomeService {
             }
 
             return ResponseEntity.ok(users);
-        } else if (gender.equals("female")) {
-            ArrayList<User> users = marriageRepo.findByGender("male");
+        } else if (gender.equals("Female")) {
+            ArrayList<User> users = marriageRepo.findByGender("Male");
             for (User user : users) {
                 user.setPassword(null);
                 user.setFav_user(null);
