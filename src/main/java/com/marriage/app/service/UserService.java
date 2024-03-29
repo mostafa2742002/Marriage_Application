@@ -505,4 +505,22 @@ public class UserService {
         }
 
     }
+
+    public ResponseEntity<String> changePhone(String id, String new_phone) {
+
+        if (id == null || new_phone == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = marriageRepo.findById(id).get();
+
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        user.setPhone(new_phone);
+        marriageRepo.save(user);
+        return ResponseEntity.ok("Phone updated successfully");
+
+    }
 }

@@ -103,4 +103,11 @@ public class UserController {
     public ResponseEntity<String> changePassword(@RequestParam String id, @RequestParam String old_password,@RequestParam String new_password) {
         return userService.changePassword(id, old_password, new_password);
     }
+
+    @PostMapping("/changephone")
+    public ResponseEntity<String> changePhone(@RequestParam String id, @RequestParam String new_phone) {
+        if (new_phone.contains("+") == false)
+            new_phone = "+" + new_phone;
+        return userService.changePhone(id, new_phone);
+    }
 }
