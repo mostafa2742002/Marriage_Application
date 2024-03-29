@@ -85,7 +85,7 @@ public class UserController {
     }
 
     @PostMapping("/check/phone")
-    public ResponseEntity<Boolean> checkPhone(@RequestParam String phone) {
+    public ResponseEntity<Boolean> checkPhone(@RequestBody String phone) {
         return userService.checkPhone(phone);
     }
 }
