@@ -111,4 +111,9 @@ public class UserController {
             new_phone = "+" + new_phone;
         return userService.changePhone(id, new_phone);
     }
+
+    @PostMapping("/deleteaccount")
+    public ResponseEntity<String> deleteAccount(@RequestParam String id) {
+        return userService.deleteAccount(id);
+    }
 }

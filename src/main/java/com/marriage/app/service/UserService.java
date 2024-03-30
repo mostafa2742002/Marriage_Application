@@ -588,4 +588,22 @@ public class UserService {
         return ResponseEntity.ok("Phone updated successfully");
 
     }
+
+    @SuppressWarnings("null")
+    public ResponseEntity<String> deleteAccount(String id) {
+
+        if (id == null) {
+            throw new NullPointerException("Id is required");
+        }
+
+        if(!marriageRepo.findById(id).isPresent())
+        {
+            throw new NullPointerException("User not found");
+        }
+
+        User user = marriageRepo.findById(id).get();
+        marriageRepo.delete(user);
+        return ResponseEntity.ok("Account deleted successfully");
+
+    }
 }
