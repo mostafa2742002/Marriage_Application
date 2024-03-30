@@ -20,13 +20,13 @@ public class UserService {
     public ResponseEntity<User> getUser(String id) {
 
         if (id == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("Id is required");
         }
 
         if (marriageRepo.findById(id).isPresent()) {
             return ResponseEntity.ok(marriageRepo.findById(id).get());
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User not found");
         }
 
     }
@@ -34,16 +34,16 @@ public class UserService {
     public ResponseEntity<String> updateUser(User user) {
 
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User is required");
         }
         User userFromDb = marriageRepo.findById(user.getId()).get();
         if (userFromDb == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User not found");
         }
 
         userFromDb = build_user(userFromDb, user);
         if (userFromDb == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User is required");
         }
         marriageRepo.save(userFromDb);
         return ResponseEntity.ok("User updated successfully");
@@ -174,8 +174,13 @@ public class UserService {
 
     public ResponseEntity<String> addToFav(String id, String favId) {
 
-        if (id == null || favId == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null) {
+            throw new NullPointerException("Id is required");
+        }
+
+        if(favId == null)
+        {
+            throw new NullPointerException("FavId is required");
         }
 
         if (marriageRepo.findById(id).isPresent() && marriageRepo.findById(favId).isPresent()) {
@@ -195,14 +200,14 @@ public class UserService {
             marriageRepo.save(user);
             return ResponseEntity.ok("User added to fav");
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User not found");
         }
     }
 
     public ResponseEntity<ArrayList<User>> getFav(String id) {
 
         if (id == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("Id is required");
         }
 
         if (marriageRepo.findById(id).isPresent()) {
@@ -212,231 +217,276 @@ public class UserService {
             }
             return ResponseEntity.ok(user.getFav_user());
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User not found");
         }
 
     }
 
     public ResponseEntity<Boolean> inMyFav(String id, String favId) {
 
-        if (id == null || favId == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null) {
+            throw new NullPointerException("Id is required");
         }
 
-        if (marriageRepo.findById(id).isPresent() && marriageRepo.findById(favId).isPresent()) {
-            User user = marriageRepo.findById(id).get();
-            User favUser = marriageRepo.findById(favId).get();
-            if (user.getFav_user() == null) {
-                return ResponseEntity.ok(false);
-            }
-            if (user.getFav_user().contains(favUser)) {
-                return ResponseEntity.ok(true);
-            } else {
-                return ResponseEntity.ok(false);
-            }
+        if(favId == null)
+        {
+            throw new NullPointerException("FavId is required");
+        }
+
+        if(!marriageRepo.findById(id).isPresent())
+        {
+            throw new NullPointerException("User not found");
+        }
+
+        if(!marriageRepo.findById(favId).isPresent())
+        {
+            throw new NullPointerException("FavUser not found");
+        }
+
+
+        User user = marriageRepo.findById(id).get();
+        User favUser = marriageRepo.findById(favId).get();
+        if (user.getFav_user() == null) {
+            return ResponseEntity.ok(false);
+        }
+        if (user.getFav_user().contains(favUser)) {
+            return ResponseEntity.ok(true);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(false);
         }
 
     }
 
     public ResponseEntity<String> setImage(String id, ArrayList<String> images) {
 
-        if (id == null || images == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null) {
+            throw new NullPointerException("Id is required");
         }
 
-        if (marriageRepo.findById(id).isPresent()) {
-            User user = marriageRepo.findById(id).get();
-            if (user.getImage_array() == null) {
-                user.setImage_array(new ArrayList<String>());
-            }
-            user.getImage_array().addAll(images);
-            marriageRepo.save(user);
-            return ResponseEntity.ok("Images added successfully");
-        } else {
-            return ResponseEntity.notFound().build();
+        if(images == null)
+        {
+            throw new NullPointerException("Images is required");
         }
+
+        if(!marriageRepo.findById(id).isPresent())
+        {
+            throw new NullPointerException("User not found");
+        }
+
+
+        User user = marriageRepo.findById(id).get();
+        if (user.getImage_array() == null) {
+            user.setImage_array(new ArrayList<String>());
+        }
+        user.getImage_array().addAll(images);
+        marriageRepo.save(user);
+        return ResponseEntity.ok("Images added successfully");
 
     }
 
     public ResponseEntity<ArrayList<String>> getImages(String id) {
 
         if (id == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("Id is required");
         }
 
-        if (marriageRepo.findById(id).isPresent()) {
-            User user = marriageRepo.findById(id).get();
-            if (user.getImage_array() == null) {
-                return ResponseEntity.ok(new ArrayList<String>());
-            }
-            return ResponseEntity.ok(user.getImage_array());
-        } else {
-            return ResponseEntity.notFound().build();
+        if(!marriageRepo.findById(id).isPresent())
+        {
+            throw new NullPointerException("User not found");
         }
+
+        
+        User user = marriageRepo.findById(id).get();
+        if (user.getImage_array() == null) {
+            return ResponseEntity.ok(new ArrayList<String>());
+        }
+        return ResponseEntity.ok(user.getImage_array());
 
     }
 
     public ResponseEntity<String> addchatWith(String id, String chatId) {
 
-        if (id == null || chatId == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null) {
+            throw new NullPointerException("Id is required");
         }
 
-        if (marriageRepo.findById(id).isPresent() && marriageRepo.findById(chatId).isPresent()) {
-            User user = marriageRepo.findById(id).get();
-            User chatUser = marriageRepo.findById(chatId).get();
-            if (user.getChat_with() == null) {
-                user.setChat_with(new ArrayList<String>());
-            }
-            if (chatUser.getChat_with() == null) {
-                chatUser.setChat_with(new ArrayList<String>());
-            }
+        if(chatId == null)
+        {
+            throw new NullPointerException("ChatId is required");
+        }
 
-            if (user.getChat_with().contains(chatId)) {
-                return ResponseEntity.ok("Yes");
-            }
+        if(!marriageRepo.findById(id).isPresent())
+        {
+            throw new NullPointerException("User not found");
+        }
 
-            String subscription = user.getSubscription();
+        if(!marriageRepo.findById(chatId).isPresent())
+        {
+            throw new NullPointerException("ChatUser not found");
+        }
 
-            if (subscription.equals("free")) {
-                if (user.getChat_with().size() >= 2) {
-                    return ResponseEntity.ok("No");
-                } else {
-                    user.getChat_with().add(chatId);
-                }
-            }
+        User user = marriageRepo.findById(id).get();
+        User chatUser = marriageRepo.findById(chatId).get();
+        if (user.getChat_with() == null) {
+            user.setChat_with(new ArrayList<String>());
+        }
+        if (chatUser.getChat_with() == null) {
+            chatUser.setChat_with(new ArrayList<String>());
+        }
 
-            if (subscription.equals("gold")) {
+        if (user.getChat_with().contains(chatId)) {
+            return ResponseEntity.ok("Yes");
+        }
+
+        String subscription = user.getSubscription();
+
+        if (subscription.equals("free")) {
+            if (user.getChat_with().size() >= 2) {
+                return ResponseEntity.ok("No");
+            } else {
                 user.getChat_with().add(chatId);
             }
-
-            if (subscription.equals("silver")) {
-                if (user.getChat_with().size() >= 10) {
-                    return ResponseEntity.ok("No");
-                } else {
-                    user.getChat_with().add(chatId);
-                }
-            }
-
-            if (subscription.equals("platinum")) {
-                if (user.getChat_with().size() >= 5) {
-                    return ResponseEntity.ok("No");
-                } else {
-                    user.getChat_with().add(chatId);
-                }
-            }
-
-            marriageRepo.save(user);
-            return ResponseEntity.ok("Yes");
-
-        } else {
-            return ResponseEntity.notFound().build();
         }
+
+        if (subscription.equals("gold")) {
+            user.getChat_with().add(chatId);
+        }
+
+        if (subscription.equals("silver")) {
+            if (user.getChat_with().size() >= 10) {
+                return ResponseEntity.ok("No");
+            } else {
+                user.getChat_with().add(chatId);
+            }
+        }
+
+        if (subscription.equals("platinum")) {
+            if (user.getChat_with().size() >= 5) {
+                return ResponseEntity.ok("No");
+            } else {
+                user.getChat_with().add(chatId);
+            }
+        }
+
+        marriageRepo.save(user);
+        return ResponseEntity.ok("Yes");
 
     }
 
     public ResponseEntity<String> chatWith(String id) {
 
         if (id == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("Id is required");
         }
 
-        if (marriageRepo.findById(id).isPresent()) {
+        if(!marriageRepo.findById(id).isPresent())
+        {
+            throw new NullPointerException("User not found");
+        }
 
-            User user = marriageRepo.findById(id).get();
+       
 
-            String subscription = user.getSubscription();
+        User user = marriageRepo.findById(id).get();
 
-            if (subscription.equals("free")) {
-                if (user.getChat_with().size() >= 2) {
-                    return ResponseEntity.ok("No");
-                } else {
-                    return ResponseEntity.ok("Yes");
-                }
-            }
+        String subscription = user.getSubscription();
 
-            if (subscription.equals("gold")) {
+        if (subscription.equals("free")) {
+            if (user.getChat_with().size() >= 2) {
+                return ResponseEntity.ok("No");
+            } else {
                 return ResponseEntity.ok("Yes");
             }
-
-            if (subscription.equals("silver")) {
-                if (user.getChat_with().size() >= 10) {
-                    return ResponseEntity.ok("No");
-                } else {
-                    return ResponseEntity.ok("Yes");
-                }
-            }
-
-            if (subscription.equals("platinum")) {
-                if (user.getChat_with().size() >= 5) {
-                    return ResponseEntity.ok("No");
-                } else {
-                    return ResponseEntity.ok("Yes");
-                }
-            }
-
-            return ResponseEntity.ok("No");
-        } else {
-            return ResponseEntity.notFound().build();
         }
+
+        if (subscription.equals("gold")) {
+            return ResponseEntity.ok("Yes");
+        }
+
+        if (subscription.equals("silver")) {
+            if (user.getChat_with().size() >= 10) {
+                return ResponseEntity.ok("No");
+            } else {
+                return ResponseEntity.ok("Yes");
+            }
+        }
+
+        if (subscription.equals("platinum")) {
+            if (user.getChat_with().size() >= 5) {
+                return ResponseEntity.ok("No");
+            } else {
+                return ResponseEntity.ok("Yes");
+            }
+        }
+
+        return ResponseEntity.ok("No");
 
     }
 
     public ResponseEntity<String> upgradeSubscribtion(String id, String subscription) {
 
-        if (id == null || subscription == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null) {
+            throw new NullPointerException("Id is required");
         }
 
-        if (marriageRepo.findById(id).isPresent()) {
-            User user = marriageRepo.findById(id).get();
-            user.setSubscription(subscription);
-            marriageRepo.save(user);
-            return ResponseEntity.ok("Subscription upgraded successfully");
-        } else {
-            return ResponseEntity.notFound().build();
+        if( subscription == null)
+        {
+            throw new NullPointerException("Subscription is required");
         }
+
+        if (!marriageRepo.findById(id).isPresent()) {
+            throw new NullPointerException("User not found");
+        }
+
+        User user = marriageRepo.findById(id).get();
+        user.setSubscription(subscription);
+        marriageRepo.save(user);
+        return ResponseEntity.ok("Subscription upgraded successfully");
 
     }
 
     public ResponseEntity<String> getSubscription(String id) {
 
         if (id == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("Id is required");
         }
 
-        if (marriageRepo.findById(id).isPresent()) {
-            User user = marriageRepo.findById(id).get();
-            return ResponseEntity.ok(user.getSubscription());
-        } else {
-            return ResponseEntity.notFound().build();
+        if(!marriageRepo.findById(id).isPresent())
+        {
+            throw new NullPointerException("User not found");
         }
 
+        User user = marriageRepo.findById(id).get();
+        return ResponseEntity.ok(user.getSubscription());
+        
     }
 
     public ResponseEntity<String> editPio(String id, String pio) {
 
-        if (id == null || pio == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null ) {
+            throw new NullPointerException("Id is required");
         }
 
-        if (marriageRepo.findById(id).isPresent()) {
-            User user = marriageRepo.findById(id).get();
-            user.setPio(pio);
-            marriageRepo.save(user);
-            return ResponseEntity.ok("Pio updated successfully");
-        } else {
-            return ResponseEntity.notFound().build();
+        if (pio == null) {
+            throw new NullPointerException("Pio is required");
         }
+
+        if(!marriageRepo.findById(id).isPresent())
+        {
+            throw new NullPointerException("User not found");
+        }
+
+        
+        User user = marriageRepo.findById(id).get();
+        user.setPio(pio);
+        marriageRepo.save(user);
+        return ResponseEntity.ok("Pio updated successfully");
 
     }
 
     public ResponseEntity<ArrayList<User>> search(String search) {
 
         if (search == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("Search is required");
         }
 
         List<User> users = marriageRepo.findAll();
@@ -453,11 +503,11 @@ public class UserService {
     public ResponseEntity<Boolean> checkPhone(String number) {
 
         if (number == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("Number is required");
         }
-        System.out.println(number);
+        // System.out.println(number);
         User user = marriageRepo.findByPhone(number);
-        System.out.println(user);
+        // System.out.println(user);
 
         if (marriageRepo.findByPhone(number) != null) {
             return ResponseEntity.ok(true);
@@ -469,14 +519,17 @@ public class UserService {
 
     public ResponseEntity<String> forgotPassword(String id, String new_password) {
 
-        if (id == null || new_password == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null) {
+            throw new NullPointerException("Id is required");
         }
-
+        if( new_password == null)
+        {
+            throw new NullPointerException("New password is required");
+        }
         User user = marriageRepo.findById(id).get();
 
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User not found");
         }
 
         user.setPassword(new_password);
@@ -486,14 +539,23 @@ public class UserService {
     }
 
     public ResponseEntity<String> changePassword(String id, String old_password, String new_password) {
-        if (id == null || old_password == null || new_password == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null) {
+            throw new NullPointerException("Id is required");
+        }
+        if(old_password == null)
+        {
+            throw new NullPointerException("Old password is required");
+        }
+
+        if(new_password == null)
+        {
+            throw new NullPointerException("New password is required");
         }
 
         User user = marriageRepo.findById(id).get();
 
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User not found");
         }
 
         if (user.getPassword().equals(old_password)) {
@@ -501,21 +563,24 @@ public class UserService {
             marriageRepo.save(user);
             return ResponseEntity.ok("Password updated successfully");
         } else {
-            return ResponseEntity.ok("Old password is incorrect");
+            throw new IllegalArgumentException("Invalid password");
         }
 
     }
 
     public ResponseEntity<String> changePhone(String id, String new_phone) {
 
-        if (id == null || new_phone == null) {
-            return ResponseEntity.notFound().build();
+        if (id == null) {
+            throw new NullPointerException("Id is required");
+        }
+        if (new_phone == null) {
+            throw new NullPointerException("New phone is required");
         }
 
         User user = marriageRepo.findById(id).get();
 
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User not found");
         }
 
         user.setPhone(new_phone);

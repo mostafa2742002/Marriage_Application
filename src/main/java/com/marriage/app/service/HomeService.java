@@ -19,16 +19,20 @@ public class HomeService {
 
     public String register(User user) {
 
-        if (user.getName() == null || user.getPassword() == null) {
-            return "Name and password are required";
+        if (user.getName() == null) {
+            throw new IllegalArgumentException("Name is required");
+        }
+
+        if(user.getPassword() == null) {
+            throw new IllegalArgumentException("Password is required");
         }
 
         if (marriageRepo.findByName(user.getName()) != null) {
-            return "Name already exists";
+            throw new IllegalArgumentException("Name already exists");
         }
 
         if (marriageRepo.findByPhone(user.getPhone()) != null) {
-            return "Phone number already exists";
+            throw new IllegalArgumentException("Phone already exists");
         }
 
         marriageRepo.save(user);
@@ -40,11 +44,11 @@ public class HomeService {
         User userFromDb = marriageRepo.findByName(user.getName());
 
         if (userFromDb == null) {
-            return ResponseEntity.notFound().build();
+            throw new NullPointerException("User not found");
         }
 
         if (!userFromDb.getPassword().equals(user.getPassword())) {
-            return ResponseEntity.notFound().build();
+            throw new IllegalArgumentException("Invalid password");
         }
         // we need to add the time when the user is active
         userFromDb.setActive_status(new Date());
