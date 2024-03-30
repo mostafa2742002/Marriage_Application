@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.marriage.app.entities.User;
 import com.marriage.app.service.HomeService;
 
+import jakarta.validation.constraints.NotNull;
+
 @RestController
 public class HomeController {
 
@@ -30,7 +32,7 @@ public class HomeController {
     }
 
     @PostMapping("/getall")
-    public ResponseEntity<ArrayList<User>> getAll(@RequestParam String gender) {
+    public ResponseEntity<ArrayList<User>> getAll(@RequestParam @NotNull String gender) {
         return homeService.getAll(gender);
     }
 

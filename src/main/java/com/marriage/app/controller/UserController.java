@@ -14,6 +14,8 @@ import com.marriage.app.dto.SetImages;
 import com.marriage.app.entities.User;
 import com.marriage.app.service.UserService;
 
+import jakarta.validation.constraints.NotNull;
+
 @RestController
 public class UserController {
 
@@ -21,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/getuser")
-    public ResponseEntity<User> getUser(@RequestParam String id) {
+    public ResponseEntity<User> getUser(@RequestParam @NotNull String id) {
         return userService.getUser(id);
     }
 
@@ -31,17 +33,17 @@ public class UserController {
     }
 
     @PostMapping("/addtofav")
-    public ResponseEntity<String> addToFav(@RequestParam String id, @RequestParam String favId) {
+    public ResponseEntity<String> addToFav(@RequestParam @NotNull String id, @RequestParam @NotNull String favId) {
         return userService.addToFav(id, favId);
     }
 
     @PostMapping("/getfav")
-    public ResponseEntity<ArrayList<User>> getFav(@RequestParam String id) {
+    public ResponseEntity<ArrayList<User>> getFav(@RequestParam @NotNull String id) {
         return userService.getFav(id);
     }
 
     @PostMapping("/inmyfav")
-    public ResponseEntity<Boolean> inMyFav(@RequestParam String id, @RequestParam String favId) {
+    public ResponseEntity<Boolean> inMyFav(@RequestParam @NotNull String id, @RequestParam @NotNull String favId) {
         return userService.inMyFav(id, favId);
     }
 
@@ -51,37 +53,37 @@ public class UserController {
     }
 
     @PostMapping("/getimages")
-    public ResponseEntity<ArrayList<String>> getImages(@RequestParam String id) {
+    public ResponseEntity<ArrayList<String>> getImages(@RequestParam @NotNull String id) {
         return userService.getImages(id);
     }
 
     @PostMapping("addchatwith")
-    public ResponseEntity<String> addchatWith(@RequestParam String id, @RequestParam String chatId) {
+    public ResponseEntity<String> addchatWith(@RequestParam @NotNull String id, @RequestParam @NotNull String chatId) {
         return userService.addchatWith(id, chatId);
     }
 
     @PostMapping("chatwith")
-    public ResponseEntity<String> chatWith(@RequestParam String id) {
+    public ResponseEntity<String> chatWith(@RequestParam @NotNull String id) {
         return userService.chatWith(id);
     }
 
     @PostMapping("/upgrade/subscription")
-    public ResponseEntity<String> upgradeSubscribtion(@RequestParam String id, @RequestParam String subscription) {
+    public ResponseEntity<String> upgradeSubscribtion(@RequestParam @NotNull String id, @RequestParam @NotNull String subscription) {
         return userService.upgradeSubscribtion(id, subscription);
     }
 
     @PostMapping("/getsubscription")
-    public ResponseEntity<String> getSubscription(@RequestParam String id) {
+    public ResponseEntity<String> getSubscription(@RequestParam @NotNull String id) {
         return userService.getSubscription(id);
     }
 
     @PostMapping("/editpio")
-    public ResponseEntity<String> editPio(@RequestParam String id, @RequestParam String pio) {
+    public ResponseEntity<String> editPio(@RequestParam @NotNull String id, @RequestParam @NotNull String pio) {
         return userService.editPio(id, pio);
     }
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList<User>> search(@RequestParam String search) {
+    public ResponseEntity<ArrayList<User>> search(@RequestParam @NotNull String search) {
         return userService.search(search);
     }
 
@@ -95,25 +97,25 @@ public class UserController {
     }
 
     @PostMapping("/forgotpassword")
-    public ResponseEntity<String> forgotPassword(@RequestParam String id, @RequestParam String new_password) {
+    public ResponseEntity<String> forgotPassword(@RequestParam @NotNull String id, @RequestParam @NotNull String new_password) {
         return userService.forgotPassword(id, new_password);
     }
 
     @PostMapping("/changepassword")
-    public ResponseEntity<String> changePassword(@RequestParam String id, @RequestParam String old_password,
-            @RequestParam String new_password) {
+    public ResponseEntity<String> changePassword(@RequestParam @NotNull String id, @RequestParam @NotNull String old_password,
+            @RequestParam @NotNull String new_password) {
         return userService.changePassword(id, old_password, new_password);
     }
 
     @PostMapping("/changephone")
-    public ResponseEntity<String> changePhone(@RequestParam String id, @RequestParam String new_phone) {
+    public ResponseEntity<String> changePhone(@RequestParam @NotNull String id, @RequestParam @NotNull String new_phone) {
         if (new_phone.contains("+") == false)
             new_phone = "+" + new_phone;
         return userService.changePhone(id, new_phone);
     }
 
     @PostMapping("/deleteaccount")
-    public ResponseEntity<String> deleteAccount(@RequestParam String id) {
+    public ResponseEntity<String> deleteAccount(@RequestParam @NotNull String id) {
         return userService.deleteAccount(id);
     }
 }
