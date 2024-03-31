@@ -48,8 +48,10 @@ public class UserController {
     }
 
     @PostMapping("/setimages")
-    public ResponseEntity<String> setImage(@RequestBody SetImages image) {
-        return userService.setImage(image.getId(), image.getImages());
+    public ResponseEntity<String> setImage(@RequestBody JsonNode image) {
+        String new_image = image.get("image").asText();
+        String id = image.get("id").asText();
+        return userService.setImage(id, new_image);
     }
 
     @PostMapping("/getimages")

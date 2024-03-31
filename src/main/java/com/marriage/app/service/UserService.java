@@ -251,13 +251,13 @@ public class UserService {
 
     }
 
-    public ResponseEntity<String> setImage(String id, ArrayList<String> images) {
+    public ResponseEntity<String> setImage(String id, String new_image) {
 
         if (id == null) {
             throw new NullPointerException("Id is required");
         }
 
-        if (images == null) {
+        if (new_image == null) {
             throw new NullPointerException("Images is required");
         }
 
@@ -269,7 +269,7 @@ public class UserService {
         if (user.getImage_array() == null) {
             user.setImage_array(new ArrayList<String>());
         }
-        user.getImage_array().addAll(images);
+        user.getImage_array().add(new_image);
         marriageRepo.save(user);
         return ResponseEntity.ok("Images added successfully");
 
