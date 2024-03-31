@@ -54,6 +54,13 @@ public class UserController {
         return userService.setImage(id, new_image);
     }
 
+    @PostMapping("/deleteimage")
+    public ResponseEntity<String> deleteImage(@RequestBody JsonNode deleted_image) {
+        String image = deleted_image.get("image").asText();
+        String id = deleted_image.get("id").asText();
+        return userService.deleteImage(id, image);
+    }
+
     @PostMapping("/getimages")
     public ResponseEntity<ArrayList<String>> getImages(@RequestParam @NotNull String id) {
         return userService.getImages(id);
@@ -70,7 +77,8 @@ public class UserController {
     }
 
     @PostMapping("/upgrade/subscription")
-    public ResponseEntity<String> upgradeSubscribtion(@RequestParam @NotNull String id, @RequestParam @NotNull String subscription) {
+    public ResponseEntity<String> upgradeSubscribtion(@RequestParam @NotNull String id,
+            @RequestParam @NotNull String subscription) {
         return userService.upgradeSubscribtion(id, subscription);
     }
 
@@ -99,18 +107,21 @@ public class UserController {
     }
 
     @PostMapping("/forgotpassword")
-    public ResponseEntity<String> forgotPassword(@RequestParam @NotNull String id, @RequestParam @NotNull String new_password) {
+    public ResponseEntity<String> forgotPassword(@RequestParam @NotNull String id,
+            @RequestParam @NotNull String new_password) {
         return userService.forgotPassword(id, new_password);
     }
 
     @PostMapping("/changepassword")
-    public ResponseEntity<String> changePassword(@RequestParam @NotNull String id, @RequestParam @NotNull String old_password,
+    public ResponseEntity<String> changePassword(@RequestParam @NotNull String id,
+            @RequestParam @NotNull String old_password,
             @RequestParam @NotNull String new_password) {
         return userService.changePassword(id, old_password, new_password);
     }
 
     @PostMapping("/changephone")
-    public ResponseEntity<String> changePhone(@RequestParam @NotNull String id, @RequestParam @NotNull String new_phone) {
+    public ResponseEntity<String> changePhone(@RequestParam @NotNull String id,
+            @RequestParam @NotNull String new_phone) {
         if (new_phone.contains("+") == false)
             new_phone = "+" + new_phone;
         return userService.changePhone(id, new_phone);

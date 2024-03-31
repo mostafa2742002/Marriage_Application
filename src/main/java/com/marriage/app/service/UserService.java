@@ -275,6 +275,34 @@ public class UserService {
 
     }
 
+    public ResponseEntity<String> deleteImage(String id, String image) {
+
+        if (id == null) {
+            throw new NullPointerException("Id is required");
+        }
+
+        if (image == null) {
+            throw new NullPointerException("Image is required");
+        }
+
+        if (!marriageRepo.findById(id).isPresent()) {
+            throw new NullPointerException("User not found");
+        }
+
+        User user = marriageRepo.findById(id).get();
+        if (user.getImage_array() == null) {
+            return ResponseEntity.ok("No images found");
+        }
+        if (user.getImage_array().contains(image)) {
+            user.getImage_array().remove(image);
+            marriageRepo.save(user);
+            return ResponseEntity.ok("Image deleted successfully");
+        } else {
+            return ResponseEntity.ok("Image not found");
+        }
+
+    }
+
     public ResponseEntity<ArrayList<String>> getImages(String id) {
 
         if (id == null) {
