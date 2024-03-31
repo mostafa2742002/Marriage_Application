@@ -31,7 +31,7 @@ public class UserService {
 
     }
 
-    public ResponseEntity<String> updateUser(User user) {
+    public ResponseEntity<User> updateUser(User user) {
 
         if (user == null) {
             throw new NullPointerException("User is required");
@@ -46,8 +46,7 @@ public class UserService {
             throw new NullPointerException("User is required");
         }
         marriageRepo.save(userFromDb);
-        return ResponseEntity.ok("User updated successfully");
-
+        return ResponseEntity.ok(userFromDb);
     }
 
     public User build_user(User userFromDb, User user) {
@@ -178,8 +177,7 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if(favId == null)
-        {
+        if (favId == null) {
             throw new NullPointerException("FavId is required");
         }
 
@@ -228,21 +226,17 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if(favId == null)
-        {
+        if (favId == null) {
             throw new NullPointerException("FavId is required");
         }
 
-        if(!marriageRepo.findById(id).isPresent())
-        {
+        if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
 
-        if(!marriageRepo.findById(favId).isPresent())
-        {
+        if (!marriageRepo.findById(favId).isPresent()) {
             throw new NullPointerException("FavUser not found");
         }
-
 
         User user = marriageRepo.findById(id).get();
         User favUser = marriageRepo.findById(favId).get();
@@ -263,16 +257,13 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if(images == null)
-        {
+        if (images == null) {
             throw new NullPointerException("Images is required");
         }
 
-        if(!marriageRepo.findById(id).isPresent())
-        {
+        if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
-
 
         User user = marriageRepo.findById(id).get();
         if (user.getImage_array() == null) {
@@ -290,12 +281,10 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if(!marriageRepo.findById(id).isPresent())
-        {
+        if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
 
-        
         User user = marriageRepo.findById(id).get();
         if (user.getImage_array() == null) {
             return ResponseEntity.ok(new ArrayList<String>());
@@ -310,18 +299,15 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if(chatId == null)
-        {
+        if (chatId == null) {
             throw new NullPointerException("ChatId is required");
         }
 
-        if(!marriageRepo.findById(id).isPresent())
-        {
+        if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
 
-        if(!marriageRepo.findById(chatId).isPresent())
-        {
+        if (!marriageRepo.findById(chatId).isPresent()) {
             throw new NullPointerException("ChatUser not found");
         }
 
@@ -379,12 +365,9 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if(!marriageRepo.findById(id).isPresent())
-        {
+        if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
-
-       
 
         User user = marriageRepo.findById(id).get();
 
@@ -428,8 +411,7 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if( subscription == null)
-        {
+        if (subscription == null) {
             throw new NullPointerException("Subscription is required");
         }
 
@@ -450,19 +432,18 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if(!marriageRepo.findById(id).isPresent())
-        {
+        if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
 
         User user = marriageRepo.findById(id).get();
         return ResponseEntity.ok(user.getSubscription());
-        
+
     }
 
     public ResponseEntity<String> editPio(String id, String pio) {
 
-        if (id == null ) {
+        if (id == null) {
             throw new NullPointerException("Id is required");
         }
 
@@ -470,12 +451,10 @@ public class UserService {
             throw new NullPointerException("Pio is required");
         }
 
-        if(!marriageRepo.findById(id).isPresent())
-        {
+        if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
 
-        
         User user = marriageRepo.findById(id).get();
         user.setPio(pio);
         marriageRepo.save(user);
@@ -522,8 +501,7 @@ public class UserService {
         if (id == null) {
             throw new NullPointerException("Id is required");
         }
-        if( new_password == null)
-        {
+        if (new_password == null) {
             throw new NullPointerException("New password is required");
         }
         User user = marriageRepo.findById(id).get();
@@ -542,13 +520,11 @@ public class UserService {
         if (id == null) {
             throw new NullPointerException("Id is required");
         }
-        if(old_password == null)
-        {
+        if (old_password == null) {
             throw new NullPointerException("Old password is required");
         }
 
-        if(new_password == null)
-        {
+        if (new_password == null) {
             throw new NullPointerException("New password is required");
         }
 
@@ -596,8 +572,7 @@ public class UserService {
             throw new NullPointerException("Id is required");
         }
 
-        if(!marriageRepo.findById(id).isPresent())
-        {
+        if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
 
