@@ -48,14 +48,14 @@ public class UserController {
     }
 
     @PostMapping("/setimages")
-    public ResponseEntity<String> setImage(@RequestBody JsonNode image) {
+    public ResponseEntity<User> setImage(@RequestBody JsonNode image) {
         String new_image = image.get("image").asText();
         String id = image.get("id").asText();
         return userService.setImage(id, new_image);
     }
 
     @PostMapping("/deleteimage")
-    public ResponseEntity<String> deleteImage(@RequestBody JsonNode deleted_image) {
+    public ResponseEntity<User> deleteImage(@RequestBody JsonNode deleted_image) {
         String image = deleted_image.get("image").asText();
         String id = deleted_image.get("id").asText();
         return userService.deleteImage(id, image);

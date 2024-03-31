@@ -251,7 +251,7 @@ public class UserService {
 
     }
 
-    public ResponseEntity<String> setImage(String id, String new_image) {
+    public ResponseEntity<User> setImage(String id, String new_image) {
 
         if (id == null) {
             throw new NullPointerException("Id is required");
@@ -271,11 +271,11 @@ public class UserService {
         }
         user.getImage_array().add(new_image);
         marriageRepo.save(user);
-        return ResponseEntity.ok("Images added successfully");
+        return ResponseEntity.ok(user);
 
     }
 
-    public ResponseEntity<String> deleteImage(String id, String image) {
+    public ResponseEntity<User> deleteImage(String id, String image) {
 
         if (id == null) {
             throw new NullPointerException("Id is required");
@@ -291,14 +291,14 @@ public class UserService {
 
         User user = marriageRepo.findById(id).get();
         if (user.getImage_array() == null) {
-            return ResponseEntity.ok("No images found");
+            return ResponseEntity.ok(user);
         }
         if (user.getImage_array().contains(image)) {
             user.getImage_array().remove(image);
             marriageRepo.save(user);
-            return ResponseEntity.ok("Image deleted successfully");
+            return ResponseEntity.ok(user);
         } else {
-            return ResponseEntity.ok("Image not found");
+            return ResponseEntity.ok(user);
         }
 
     }
