@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import com.marriage.app.entities.User;
+import java.util.List;
+
 
 @Repository
 public interface marriage_repo  extends MongoRepository <User, String>{
@@ -13,6 +15,7 @@ public interface marriage_repo  extends MongoRepository <User, String>{
     public Optional<User> findById(String id);
     // i want to get the user by gender 
     public User findByName(String name);
+    public User findByUsername(String username);
     public ArrayList<User> findByGender(String gender);
     public User findByPhone(String phone);
 }

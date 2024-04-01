@@ -23,6 +23,8 @@ public class User {
 
     private String name; // name of the user
 
+    private String username; // username of the user
+
     private String birthdate; // birthdate of the user
 
     private String gender; // male or female

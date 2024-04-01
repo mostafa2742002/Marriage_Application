@@ -71,6 +71,9 @@ public class UserService {
         if (user.getName() != null) {
             userFromDb.setName(user.getName());
         }
+        if(user.getUsername() != null){
+            userFromDb.setUsername(user.getUsername());
+        }
         if (user.getBirthdate() != null) {
             userFromDb.setBirthdate(user.getBirthdate());
         }
@@ -499,7 +502,7 @@ public class UserService {
         List<User> users = marriageRepo.findAll();
         ArrayList<User> result = new ArrayList<User>();
         for (User user : users) {
-            if (user.getName().contains(search)) {
+            if (user.getName().contains(search) || user.getUsername().contains(search) || user.getPhone().contains(search)){
                 result.add(user);
             }
         }

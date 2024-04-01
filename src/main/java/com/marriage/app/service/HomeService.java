@@ -19,15 +19,15 @@ public class HomeService {
 
     public String register(User user) {
 
-        if (user.getName() == null) {
+        if (user.getUsername() == null) {
             throw new IllegalArgumentException("Name is required");
         }
 
-        if(user.getPassword() == null) {
+        if (user.getPassword() == null) {
             throw new IllegalArgumentException("Password is required");
         }
 
-        if (marriageRepo.findByName(user.getName()) != null) {
+        if (marriageRepo.findByUsername(user.getName()) != null) {
             throw new IllegalArgumentException("Name already exists");
         }
 
@@ -41,7 +41,7 @@ public class HomeService {
 
     public ResponseEntity<User> login(User user) {
 
-        User userFromDb = marriageRepo.findByName(user.getName());
+        User userFromDb = marriageRepo.findByUsername(user.getUsername());
 
         if (userFromDb == null) {
             throw new NullPointerException("User not found");
