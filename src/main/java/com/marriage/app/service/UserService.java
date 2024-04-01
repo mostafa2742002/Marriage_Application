@@ -436,7 +436,7 @@ public class UserService {
 
     }
 
-    public ResponseEntity<String> upgradeSubscribtion(String id, String subscription) {
+    public ResponseEntity<String> upgradeSubscribtion(String id, String subscription, String orderID) {
 
         if (id == null) {
             throw new NullPointerException("Id is required");
@@ -446,12 +446,18 @@ public class UserService {
             throw new NullPointerException("Subscription is required");
         }
 
+        if (orderID == null) {
+            throw new NullPointerException("OrderID is required");
+        }
+
         if (!marriageRepo.findById(id).isPresent()) {
             throw new NullPointerException("User not found");
         }
 
         User user = marriageRepo.findById(id).get();
         user.setSubscription(subscription);
+        user.setSubscription_ID(orderID);
+        user.setSubscription_Start(new Date());
         marriageRepo.save(user);
         return ResponseEntity.ok("Subscription upgraded successfully");
 

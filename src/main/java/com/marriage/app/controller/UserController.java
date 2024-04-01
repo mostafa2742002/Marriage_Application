@@ -76,11 +76,11 @@ public class UserController {
         return userService.chatWith(id);
     }
 
-    @PostMapping("/upgrade/subscription")
-    public ResponseEntity<String> upgradeSubscribtion(@RequestParam @NotNull String id,
-            @RequestParam @NotNull String subscription) {
-        return userService.upgradeSubscribtion(id, subscription);
-    }
+    // @PostMapping("/upgrade/subscription")
+    // public ResponseEntity<String> upgradeSubscribtion(@RequestParam @NotNull String id,
+    //         @RequestParam @NotNull String subscription) {
+    //     return userService.upgradeSubscribtion(id, subscription);
+    // }
 
     @PostMapping("/getsubscription")
     public ResponseEntity<String> getSubscription(@RequestParam @NotNull String id) {

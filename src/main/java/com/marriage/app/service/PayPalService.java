@@ -76,15 +76,16 @@ public class PayPalService {
     }
 
     public String approveOrder(JsonNode req) {
-        String PlanID = req.get("plan_id").asText();
+        String PlanID = req.get("planID").asText();
         String UserID = req.get("user_id").asText();
+        String OrderID = req.get("orderID").asText();
 
         if (PlanID.equals("P-7F506781903971727MYE52DY")) {
-            userService.upgradeSubscribtion(UserID, "platinum");
+            userService.upgradeSubscribtion(UserID, "platinum", OrderID);
         } else if (PlanID.equals("P-05T194624Y154152FMYE5ZYA")) {
-            userService.upgradeSubscribtion(UserID, "gold");
+            userService.upgradeSubscribtion(UserID, "gold", OrderID);
         } else if (PlanID.equals("P-3VK67379VD872780JMYE5ZLI")) {
-            userService.upgradeSubscribtion(UserID, "silver");
+            userService.upgradeSubscribtion(UserID, "silver", OrderID);
         } else {
             return "Invalid Plan ID";
         }

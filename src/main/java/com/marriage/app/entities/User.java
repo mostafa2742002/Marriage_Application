@@ -84,6 +84,10 @@ public class User {
 
     private String subscription;
 
+    private String subscription_ID;
+
+    private Date subscription_Start;
+
     private ArrayList<String> chat_with;
 
     private String pio = "hey, i am using marriage app";
