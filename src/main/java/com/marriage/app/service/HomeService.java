@@ -20,7 +20,7 @@ public class HomeService {
     public User register(User user) {
 
         if (user.getUsername() == null) {
-            throw new IllegalArgumentException("Name is required");
+            throw new IllegalArgumentException("User Name is required");
         }
 
         if (user.getPassword() == null) {
@@ -28,7 +28,7 @@ public class HomeService {
         }
 
         if (marriageRepo.findByUsername(user.getName()) != null) {
-            throw new IllegalArgumentException("Name already exists");
+            throw new IllegalArgumentException("User Name already exists");
         }
 
         if (marriageRepo.findByPhone(user.getPhone()) != null) {
