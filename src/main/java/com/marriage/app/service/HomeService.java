@@ -17,7 +17,7 @@ public class HomeService {
     @Autowired
     private marriage_repo marriageRepo;
 
-    public String register(User user) {
+    public User register(User user) {
 
         if (user.getUsername() == null) {
             throw new IllegalArgumentException("Name is required");
@@ -35,8 +35,7 @@ public class HomeService {
             throw new IllegalArgumentException("Phone already exists");
         }
 
-        marriageRepo.save(user);
-        return "User registered successfully";
+        return marriageRepo.save(user);
     }
 
     public ResponseEntity<User> login(User user) {

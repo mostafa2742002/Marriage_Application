@@ -21,7 +21,7 @@ public class HomeController {
     private HomeService homeService;
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public User register(@RequestBody User user) {
         // System.out.println(user);
         return homeService.register(user);
     }
