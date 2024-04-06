@@ -65,7 +65,7 @@ public class HomeService {
         if (gender.equals("Male")) {
             ArrayList<User> users = marriageRepo.findByGender("Female");
             for (User user : users) {
-                user.setPassword(null);
+                // user.setPassword(null);
                 user.setFav_user(null);
                 // we need to minus the time when the user is active
                 // user.setActive_status( new Date(System.currentTimeMillis() -
@@ -77,7 +77,7 @@ public class HomeService {
         } else if (gender.equals("Female")) {
             ArrayList<User> users = marriageRepo.findByGender("Male");
             for (User user : users) {
-                user.setPassword(null);
+                // user.setPassword(null);
                 user.setFav_user(null);
                 // we need to minus the time when the user is active
                 // user.setActive_status( new Date(System.currentTimeMillis() -
