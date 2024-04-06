@@ -27,7 +27,7 @@ public class HomeService {
             throw new IllegalArgumentException("Password is required");
         }
 
-        if (marriageRepo.findByUsername(user.getName()) != null) {
+        if (marriageRepo.findByUsername(user.getUsername() != null) {
             throw new IllegalArgumentException("User Name already exists");
         }
 
