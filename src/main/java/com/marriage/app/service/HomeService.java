@@ -35,8 +35,8 @@ public class HomeService {
             throw new IllegalArgumentException("Phone already exists");
         }
         System.out.println(user.getPassword());
-
-        return marriageRepo.save(user);
+        marriageRepo.save(user);
+        return user;
     }
 
     public ResponseEntity<User> login(User user) {
