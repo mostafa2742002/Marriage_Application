@@ -34,6 +34,7 @@ public class HomeService {
         if (marriageRepo.findByPhone(user.getPhone()) != null) {
             throw new IllegalArgumentException("Phone already exists");
         }
+        System.out.println(user.getPassword());
 
         return marriageRepo.save(user);
     }
@@ -56,7 +57,7 @@ public class HomeService {
         }
 
         marriageRepo.save(userFromDb);
-
+        System.out.println(user.getPassword());
         return ResponseEntity.ok(userFromDb);
     }
 
