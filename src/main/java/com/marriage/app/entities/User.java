@@ -99,4 +99,6 @@ public class User {
     private String city;
 
     private String country;
+
+    private int visability = 0;
 }
